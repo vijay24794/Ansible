@@ -1,0 +1,52 @@
+    1  cd
+    2  ssh devops@servera
+    3  sudo yum install ansible -y
+    4  mkdir ansible
+    5  ls
+    6  cd ansible/
+    7  vim inventory
+    8  ls
+    9  ansible all --list
+   10  ansible all --list -i inventory 
+   11  vim ansible.cfg
+   12  ansible all --list 
+   13  ansible all --list-hosts 
+   14  vim ansible.cfg
+   15  ansible all --list-hosts 
+   16  ansible all --list
+   17  mkdir roles
+   18  pwd
+   19  ls
+   20  vim yum-pack.sh
+   21  ll
+   22  chmod +x yum-pack.sh 
+   23  ll
+   24  sh yum-pack.sh 
+   25  ansible all -a 'yum repolist all'
+   26  ls
+   27  vim ~/.vimrc
+   28  vim packages.yml
+   29  ansible all --syntax-check packages.yml 
+   30  ansible-playbook --syntax-check packages.yml 
+   31  ansible-playbook --check packages.yml 
+   32  ansible-playbook packages.yml 
+   33  ansible-vault view vault.yml --vault-password-file=password.txt
+   34  vim create_user.yml
+   35  ls
+   36  vim create_user.yml 
+   37  ansible-playbook create_user.yml 
+   38  ansible-playbook create_user.yml --vault-password-file=password.txt
+   39  vim create_user.yml 
+   40  ansible-playbook create_user.yml --vault-password-file=password.txt
+   41  vim create_user.yml 
+   42  ansible-playbook create_user.yml --vault-password-file=password.txt
+   43  vim lvm.yml
+   44  ansible-playbook lvm.yml 
+   45  vim lvm.yml
+   46  cd ..
+   47  ls
+   48  tar cvfj ansible.tar.bz2 ansible
+   49  ls
+   50  du -sh ansible
+   51  cd ansible/
+   52  history > history

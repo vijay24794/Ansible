@@ -1,0 +1,34 @@
+---
+- hosts: dev
+  tasks: 
+    - yum: 
+        name: 
+          - httpd
+          - libsemanage
+          - policycoreutils
+          - python3-policycoreutils
+    - file: 
+        path: /webdev
+        state: directory
+        group: apache 
+        mode: '2775'
+    - copy:
+        content: 'development'
+        dest: /webdev/index.html
+    - sefcontext: 
+        setype: httpd_sys_content_t
+        target: '/webdev(/.*)?'
+    - command: restorecon -irv /webdev
+    - firewalld: 
+        service: http
+        permanent: yes
+        immediate: yes
+        state: enabled
+    - file: 
+        src: /webdev
+        dest: /var/www/html/webdev
+        state: link
+    - service: 
+        name: httpd
+        state: started
+        enabled: yes

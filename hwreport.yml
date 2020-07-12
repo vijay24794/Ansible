@@ -1,0 +1,48 @@
+---
+- hosts: all
+  tasks: 
+    - get_url: 
+        url: http://classroom.example.com/pub/hwreport.empty
+        dest: /root/hwreport.txt
+    - replace: 
+        regexp: "{{ item.src }}"
+        replace: "{{ item.dest }}"
+        dest: /root/hwreport.txt
+      loop:
+        - src: host
+          dest: "{{ ansible_hostname }}"
+        - src: bios
+          dest: "{{ ansible_bios_version }}"
+        - src: memtotal
+          dest: "{{ ansible_memtotal_mb }}"
+    - replace: 
+        regexp: vda
+        replace: "{{ ansible_devices.vda.size }}"
+        dest: /root/hwreport.txt
+      when: ansible_devices.vda is defined
+    - replace: 
+        regexp: vda
+        replace: "NONE"
+        dest: /root/hwreport.txt
+      when: ansible_devices.vda is not defined
+
+    - replace: 
+        regexp: vdb
+        replace: "{{ ansible_devices.vdb.size }}"
+        dest: /root/hwreport.txt
+      when: ansible_devices.vdb is defined
+    - replace: 
+        regexp: vda
+        replace: "NONE"
+        dest: /root/hwreport.txt
+      when: ansible_devices.vdb is not defined
+    - replace: 
+        regexp: vdc
+        replace: "{{ ansible_devices.vdc.size }}"
+        dest: /root/hwreport.txt
+      when: ansible_devices.vdc is defined
+    - replace: 
+        regexp: vdc
+        replace: "NONE"
+        dest: /root/hwreport.txt
+      when: ansible_devices.vdc is not defined

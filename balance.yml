@@ -1,0 +1,7 @@
+---
+- hosts: webservers
+  roles: 
+    - phphello
+- hosts: balancers
+  roles: 
+    - balancer
